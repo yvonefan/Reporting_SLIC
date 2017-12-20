@@ -81,6 +81,11 @@ COLOR_SETS = [
      (204/255.0, 229/255.0, 255/255.0),(204/255.0, 255/255.0, 255/255.0)]
 ]
 
+EMAIL_ADDRESS_DICT = {'Wang, Eric X':'Eric.X.Wang@emc.com', 'Nie, Jerry':'Jerry.Nie@emc.com', \
+                      'Huang, James':'James.Huang@emc.com', 'Lu, Yinlong':'Yinlong.Lu@emc.com',\
+                      'Cai, Colin':'Colin.Cai@emc.com', 'Zhuang, Cathy':'Cathy.Zhuang@emc.com',\
+                      'Hu, Xuefeng':'Xuefeng.Hu@emc.com', 'Xia, Amy':'Amy.Xia@emc.com', 'Hu, Jun':'Jun.Hu3@emc.com',\
+                      'Fan, Winnie':'Winnie.Fan@emc.com', 'Fu, Felix':'Felix.Fu@emc.com'}
 def arg_parser():
     parser = argparse.ArgumentParser(prog=__filename__,usage='%(prog)s [options]')
     parser.add_argument('-u', nargs=1, dest='username', required=True)
@@ -125,8 +130,48 @@ def get_ar_obj_list(rawars, isTBV=None):
                 days_in_status = (CUR_TIME - final_fixed_time_sec) / (24 * 60 * 60) + 1
                 ar_obj.days_in_status = days_in_status
 
+        check_ETA(ar_obj)
         res.append(ar_obj)
     return res
+
+def check_ETA(ar):
+    #get current timestamp
+    timer = TimeHelper()
+    cur_time = timer.get_mtime()
+    additional_body = ''
+    send_ETA_email_flag = 0
+
+    # add AR hypher-link
+    if 'MDT' in ar.entry_id:
+        ar_link = "https://jira.cec.lab.emc.com:8443/browse/" + ar.entry_id
+    else:
+        # ar.entry_id = '98234', need to strcat ar.entry_id to '000000000098234', then can use it in ar web link
+        AR_ID_LEN = 15
+        init_ar_id = '000000000000000'
+        if len(ar.entry_id) < AR_ID_LEN:
+            ar_id = init_ar_id[0:AR_ID_LEN - len(ar.entry_id)] + ar.entry_id
+        ar_link = "http://arswebprd01.isus.emc.com/arsys/servlet/ViewFormServlet?form=EMC%3aIssue%20Tracking&server=arsappprd01.isus.emc.com&eid=" + ar_id
+
+    ar_id_hypher_link = '<a style="color:red" href=%s>%s</a>' % (ar_link, ar.entry_id)
+
+    if ar.status == 'Open' and ar.estimated_checkin_date:
+        interval = ar.estimated_checkin_date - cur_time
+        if interval >= 0:
+            interval_day = interval/(24*60*60)
+            if interval_day <= 2:
+                send_ETA_email_flag = 1
+                additional_body = '<p>ETA of AR %s is %s which is less than 2 days.</p>' % (ar_id_hypher_link, ar.estimated_checkin_date_local)
+                additional_body += "Please triage this AR ASAP."
+        else:
+            send_ETA_email_flag = 1
+            additional_body = '<p>ETA of AR %s is expired.</p>' % (ar_id_hypher_link)
+            additional_body += "Please triage this AR ASAP and change ETA, or you will receive this email frequently."
+
+        if send_ETA_email_flag:
+            subj = "AR ETA Warning"
+            if ar.assigned_to:
+                to_address = EMAIL_ADDRESS_DICT[ar.assigned_to]
+                sent_ETA_warning_email(to_address, subj, ar, additional_body)
 
 def save_AR_list_to_excel(ar_list, filename, isTBV=None):
     """
@@ -1457,6 +1502,26 @@ def sent_report_email(parammap, files_to_send, bug_releases, additional_body):
             'th{text-align:center;font:bold;background-color:#ccff99} td{text-align:center;font:bold;}' +\
             'span{margin-bottom:20px;display:block;font-family:"sans-serif";font-size:14.0pt;}</style>'
     mailer.send_email(parammap['to'], subj, style+body, ifHtmlBody, embed_images, additional_body, parammap['cc'], parammap['bcc'], att)
+
+def sent_ETA_warning_email(to_email_address, subj, ar_obj, additional_body = None, cc_email_address = None):
+    """
+    Sends out report via email
+    :param bug_releases: release of the bugs
+    :param additional_body: additional to append at the end of the email
+    :return:
+    """
+    logger.debug("-" * 40 + "[sent_ETA_warning_email]" + "-" * 40)
+    mailer = EmailHelper()
+    ifHtmlBody = True
+    body='<h3>This report is generated automatically by SLIC team.</h3><hr>'
+
+    notice = ''
+    body = body + notice
+    style = '<style>table,th,td{border: 1px solid black;border-collapse: collapse;font-family:"Arial";'+\
+            'font-size:8.0pt;color:black} table{width:900px;}caption{text-align: left;font-size:14.0pt;}'+\
+            'th{text-align:center;font:bold;background-color:#ccff99} td{text-align:center;font:bold;}' +\
+            'span{margin-bottom:20px;display:block;font-family:"sans-serif";font-size:14.0pt;}</style>'
+    mailer.send_email(to_email_address, subj, style+body, ifHtmlBody, None, additional_body, cc_email_address)
 
 #get AR related to camap, i.e., classify AR with ca name.
 def count_by_ca_manager(arobjlist, cas, camap):

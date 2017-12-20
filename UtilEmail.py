@@ -10,7 +10,7 @@ class EmailHelper:
     def __init__(self, log=None):
         self.logger = log
 
-    def send_email(self,to,subj=None,body=None,ifHtmlNody=False,embed_images=False,additional_body=None,cc=None,bcc=None,att=None):
+    def send_email(self,to,subj=None,body=None,ifHtmlNody=False,embed_images=None,additional_body=None,cc=None,bcc=None,att=None):
         """
         Sends Email
         :param to: recipients of the email
@@ -30,7 +30,7 @@ class EmailHelper:
         if subj is not None:
             newMail.Subject = subj
         if(ifHtmlNody):
-            newMail.HTMLBody='<a name="top"></a>'
+            newMail.HTMLBody=''
             if body is not None:
                 newMail.HTMLBody +=body
             if embed_images is not None:
@@ -46,8 +46,6 @@ class EmailHelper:
             if additional_body is not None:
                 print additional_body
                 newMail.HTMLBody +=additional_body
-
-            newMail.HTMLBody +='<p><a href="#top">Back To Top</a></p>'
         else:
             if body is not None:
                 newMail.Body = body

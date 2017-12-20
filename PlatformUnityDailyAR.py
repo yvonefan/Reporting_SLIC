@@ -271,8 +271,12 @@ def generate_cyclone_ar_obj(platformCycloneAR):
     version_found = platformCycloneAR.fields.customfield_11102
 
     direct_manager = ""
-    estimated_checkin_date = ""#? timeestimate
+    estimated_checkin_date = ""
     estimated_checkin_date_local = ""
+    if platformCycloneAR.fields.duedate:
+        estimated_checkin_date_str = platformCycloneAR.fields.duedate
+        estimated_checkin_date = timer.date_str_to_timestamp(estimated_checkin_date_str)
+        estimated_checkin_date_local = timer.mtime_to_local_date(estimated_checkin_date)
     reported_by_group = ""
     reported_by_function = ""
     product_family = ""

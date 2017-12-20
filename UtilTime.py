@@ -133,6 +133,14 @@ class TimeHelper:
         dat = datetime.date(dat.tm_year,dat.tm_mon,dat.tm_mday)
         return dat
 
+    def date_str_to_timestamp(self, dstr):
+        '''
+        :param dstr: '2017-01-02'
+        :return:1483286400
+        '''
+        dat = time.strptime(dstr,'%Y-%m-%d')
+        return (int(time.mktime(dat)))
+
     def strtime_to_datetime(self, strtime):
         '''
         Change strtime like '2016-02-25 20:21:04.242' to datetime like 2016-02-25 20:21:04.242000.
