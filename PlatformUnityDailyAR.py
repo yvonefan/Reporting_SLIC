@@ -161,8 +161,13 @@ def generate_unity_ar_obj(platformUnityAR):
         elif key == 536871084:
             type = value
         elif key == 536871606:
-            estimated_checkin_date = value
-            estimated_checkin_date_local = timer.julain_day_to_calendar_date(value)
+            #need to convert julian time to standard seconds from 1970y.
+            estimated_checkin_date = None
+            estimated_checkin_date_local = None
+            if value:
+                estimated_checkin_date_julian = value
+                estimated_checkin_date = 946746000 + (estimated_checkin_date_julian - 2451545)*24*60*60
+                estimated_checkin_date_local = timer.julain_day_to_calendar_date(value)
         elif key == 536871388:
             reported_by_group = value
         elif key == 536871389:
