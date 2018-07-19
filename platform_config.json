@@ -1,7 +1,7 @@
 {
   "report name":"SLIC team",
   "assinged to manager param map":{
-     "Senior Manager" : [ "\"Pu, John\""],
+     "Senior Manager" : [ "\"Yan, Sam\""],
      "Assigned-to" : ["\"Wang, Eric X\"","\"Nie, Jerry\"","\"Huang, James\"","\"Lu, Yinlong\"","\"Cai, Colin\"","\"Zhuang, Cathy\"","\"Hu, Xuefeng\"","\"Xia, Amy\"","\"Hu, Jun\"","\"Fan, Winnie\"","\"Fu, Felix\""],
      "Status" : ["\"Open\"","\"Waiting on Originator\"","\"In-progress\""],
      "Type":["\"Bug\""],
@@ -19,7 +19,7 @@
                         "\"Osprey\""]
   },
   "reported by manager param map":{
-     "Senior Manager" : [ "\"Pu, John\""],
+     "Senior Manager" : [ "\"Yan, Sam\""],
      "Status" : ["\"Fixed\""],
      "Status Details":["\"Test-ready\""],
      "Type":["\"Bug\""],
