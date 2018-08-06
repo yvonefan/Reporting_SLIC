@@ -11,7 +11,9 @@ import matplotlib.dates as mdates
 
 from UtilArrayMap import *
 from UtilMath import *
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 class GraphHelper:
     def __init__(self, log=None):
