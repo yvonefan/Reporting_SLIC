@@ -1992,10 +1992,15 @@ def main():
     # releases_report(ar_obj_list, parammap, files_to_send)
     # ar_total_weekly_in_out_trend_report( parammap, files_to_send)
     logger.debug(bugmap.keys())
-    sent_report_email(parammap, files_to_send, bugmap.keys(), additional_body)
-    logger.debug("="*25 + "End" + "="*25)
+
+    if ar_obj_list:
+        sent_report_email(parammap, files_to_send, bugmap.keys(), additional_body)
+    else:
+        print("There is no AR, so don't need to send email.")
+
+    logger.debug("=" * 25 + "End" + "=" * 25)
     total_time = time.clock() - start
-    print("total time(mins): ", total_time/60)
+    print("total time(mins): ", total_time / 60)
     return 0
 
 if __name__ == '__main__':
