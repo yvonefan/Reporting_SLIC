@@ -1997,7 +1997,8 @@ def main():
     if ar_obj_list:
         sent_report_email(parammap, files_to_send, bugmap.keys(), additional_body)
     else:
-        print("There is no AR, so don't need to send email.")
+        mailer = EmailHelper()
+        mailer.send_email(to = parammap['to'], subj = 'No SLIC ARs today.')
 
     logger.debug("=" * 25 + "End" + "=" * 25)
     total_time = time.clock() - start
