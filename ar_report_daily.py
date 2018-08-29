@@ -1998,7 +1998,7 @@ def main():
         sent_report_email(parammap, files_to_send, bugmap.keys(), additional_body)
     else:
         mailer = EmailHelper()
-        mailer.send_email(to = parammap['to'], subj = 'No SLIC ARs today.')
+        mailer.send_email(to = parammap['to'], subj = 'No SLIC AR today.')
 
     logger.debug("=" * 25 + "End" + "=" * 25)
     total_time = time.clock() - start
