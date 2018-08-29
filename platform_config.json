@@ -2,7 +2,10 @@
   "report name":"SLIC team",
   "assinged to manager param map":{
      "Senior Manager" : [ "\"Yan, Sam\""],
-     "Assigned-to" : ["\"Wang, Eric X\"","\"Nie, Jerry\"","\"Huang, James\"","\"Lu, Yinlong\"","\"Cai, Colin\"","\"Zhuang, Cathy\"","\"Hu, Xuefeng\"","\"Xia, Amy\"","\"Hu, Jun\"","\"Fan, Winnie\"","\"Fu, Felix\""],
+     "Assigned-to" : ["\"Wang, Eric X\"","\"Nie, Jerry\"","\"Huang, James\"","\"Lu, Yinlong\"","\"Cai, Colin\"",
+                      "\"Zhuang, Cathy\"","\"Hu, Xuefeng\"","\"Hu, Jun\"","\"Fan, Winnie\"","\"Fu, Felix\"",
+                      "\"Shubin, Alexey\"","\"Asmanavichyus, Gedryus\"","\"Zubekhin, Nestor\"",
+                      "\"Tirodkar, Yogesh\"","\"Bhansali, Pallavi\""],
      "Status" : ["\"Open\"","\"Waiting on Originator\"","\"In-progress\""],
      "Type":["\"Bug\""],
      "Parent Bug #": ["\"$NULL$\""],

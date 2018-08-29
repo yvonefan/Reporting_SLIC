@@ -171,7 +171,8 @@ def check_ETA(ar):
             subj = "AR ETA Warning"
             if ar.assigned_to:
                 to_address = EMAIL_ADDRESS_DICT[ar.assigned_to]
-                sent_ETA_warning_email(to_address, subj, ar, additional_body)
+                if to_address:
+                    sent_ETA_warning_email(to_address, subj, ar, additional_body)
 
 def save_AR_list_to_excel(ar_list, filename, isTBV=None):
     """
