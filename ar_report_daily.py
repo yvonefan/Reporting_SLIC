@@ -169,7 +169,7 @@ def check_ETA(ar):
 
         if send_ETA_email_flag:
             subj = "AR ETA Warning"
-            if ar.assigned_to:
+            if ar.assigned_to and (ar.assigned_to in EMAIL_ADDRESS_DICT):
                 to_address = EMAIL_ADDRESS_DICT[ar.assigned_to]
                 if to_address:
                     sent_ETA_warning_email(to_address, subj, ar, additional_body)
