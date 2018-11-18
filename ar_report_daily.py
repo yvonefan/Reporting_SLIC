@@ -23,7 +23,7 @@ from UtilEmail import *
 from ARAuditTrail import *
 
 from RadarCrawler import *
-import ar_radar_report
+# import ar_radar_report
 import xlwt
 import warnings
 from jira import JIRA
@@ -510,7 +510,7 @@ def refine_twod_array(twod_array):
     for i in range(0, len(twod_array)):
         res.append(list())
         for j in range(0, len(twod_array[0])):
-            print twod_array[i][j]
+            print str(twod_array[i][j]).encode("utf-8")
             res[i].append(strer.split_str_by_length(str(twod_array[i][j]), 15, 45))
     return res
 
