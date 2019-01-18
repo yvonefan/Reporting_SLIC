@@ -83,11 +83,13 @@ COLOR_SETS = [
 
 EMAIL_ADDRESS_DICT = {'Wang, Eric X':'Eric.X.Wang@emc.com', 'Nie, Jerry':'Jerry.Nie@emc.com', \
                       'Huang, James':'James.Huang@emc.com', 'Lu, Yinlong':'Yinlong.Lu@emc.com',\
-                      'Cai, Colin':'Colin.Cai@emc.com', 'Zhuang, Cathy':'Cathy.Zhuang@emc.com',\
-                      'Hu, Xuefeng':'Xuefeng.Hu@emc.com', 'Xia, Amy':'Amy.Xia@emc.com', 'Hu, Jun':'Jun.Hu3@emc.com',\
+                      'Zhou, Jiabing':'Jiabing.Zhou@emc.com', 'Zhuang, Cathy':'Cathy.Zhuang@emc.com',\
+                      'Hu, Xuefeng':'Xuefeng.Hu@emc.com', 'Wu, Junchao':'Alan.Wu1@emc.com', 'Hu, Jun':'Jun.Hu3@emc.com',\
                       'Fan, Winnie':'Winnie.Fan@emc.com', 'Fu, Felix':'Felix.Fu@emc.com', \
-                      'Zhang, Zhenghao': 'Zhenghao.Zhang@emc.com', 'Cheng, Xiang': 'Xiang.Cheng@emc.com',\
-                      'Tian, Shuangjie': 'Shuangjie.Tian@emc.com','Xu, Xiaoxu': 'Xiaoxu.Xu@emc.com'}
+                      'Huang, Junliang':'Junliang.Huang@emc.com', 'Cheng, Xiang': 'Xiang.Cheng@emc.com',\
+                      'Tian, Shuangjie': 'Shuangjie.Tian@emc.com','Zhang, Renjie':'Adam.Zhang1@emc.com', \
+                      'Guan, Yunsheng':'Yunsheng.Guan@emc.com','Xu, Yonggen':'Yonggen.Xu@emc.com',\
+                      'Xia, Litao':'Litao.Xia@emc.com'}
 def arg_parser():
     parser = argparse.ArgumentParser(prog=__filename__,usage='%(prog)s [options]')
     parser.add_argument('-u', nargs=1, dest='username', required=True)
@@ -1575,7 +1577,7 @@ def get_ars_assigned_in_Remedy(ar_obj_list, parammap):
 
 def get_ars_assigned_in_Jira(ar_obj_list, parammap):
     logger.debug("[get_ars assigned to common platform team in Jira]......")
-    mres_query_string = 'project = MDT AND "MRES Product" = Cyclone AND Release = Smuttynose AND issuetype = Bug AND status in (Open, "In Progress", Reopened, WOO) AND issueFunction not in hasLinks("duplicates(childof)") AND priority in (P00,P01,P02) AND assignee in (wange11,niej,huangj30,luy14,caic2,zhuanc2,hux5,xiaa3,huj24,fanw4,fuf3,chengx3,tians4,xux10,zhangz33)  ORDER BY  created DESC'
+    mres_query_string = 'project = MDT AND "MRES Product" = Cyclone AND Release = Smuttynose AND issuetype = Bug AND status in (Open, "In Progress", Reopened, WOO) AND issueFunction not in hasLinks("duplicates(childof)") AND priority in (P00,P01,P02) AND assignee in (wange11,niej,huangj30,luy14,zhuanc2,hux5,huj24,fanw4,fuf3,chengx3,tians4,zhangr38,huangj43,zhouj40,xuy24,guany3,xial2)  ORDER BY  created DESC'
     mres_max_results = 200
     global jira_session
     mres_open_issues = jira_session.search_issues(mres_query_string, startAt=0, maxResults=mres_max_results, expand="changelog")

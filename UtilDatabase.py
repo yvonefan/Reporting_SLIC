@@ -22,6 +22,7 @@ class DatabaseHelper:
         """
         try:
             handler.Login('arsystem.isus.emc.com', 'dimsreport', 'report')
+            #handler.Login('arsappprd01.isus.emc.com', 'dimsreport', 'report') #backup server
             self.logger.debug("log in RemedyAR successfully ...") if self.logger else "No"
         except Exception, e:
             self.logger.debug(e) if self.logger else "No"
